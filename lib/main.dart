@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:manga_app/pages/first_page.dart';
+import 'package:manga_app/pages/login_page.dart';
 import 'package:manga_app/style/color_app.dart';
 
 void main() {
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/':(context) => const FirstPage(),
+        'login':(context) => const LoginPage(),
       },
       debugShowCheckedModeBanner: false,
     );

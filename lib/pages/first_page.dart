@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:manga_app/style/color_app.dart';
+import 'package:manga_app/style/text_app.dart';
 
 class FirstPage extends StatelessWidget {
   const FirstPage({super.key});
@@ -7,70 +8,77 @@ class FirstPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 30),
-        child: Center(
-          child: Column(
-            children: [
-              Spacer(),
-              Text(
-                'MANGA',
-                style: TextStyle(
-                  color: ColorApp.white,
-                  fontSize: 45,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                'FLIX',
-                style: TextStyle(
-                  color: ColorApp.violet,
-                  fontSize: 82,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Spacer(),
-              SizedBox(
-                width: double.infinity,
-                height: 43,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorApp.violet.withOpacity(0),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                        side: BorderSide(width: 1, color: ColorApp.white)),
-                  ),
-                  child: Text(
-                    'Log up',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 43,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorApp.violet.withOpacity(0),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                        side: BorderSide(width: 1, color: ColorApp.white)),
-                  ),
-                  child: Text(
-                    'Log in',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-              ),
-             
-            ],
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          Positioned(
+            width: 680,
+            height: 680,
+            child: Opacity(
+              opacity: 0.5,
+              child: Image.asset('assets/png/levi.png'),
+            ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 30),
+            child: Center(
+              child: Column(
+                children: [
+                  const Spacer(),
+                  const Text(
+                    'MANGA',
+                    style: TextStyleApp.headerTwo,
+                  ),
+                  const Text(
+                    'FLIX',
+                    style: TextStyleApp.headerOne,
+                  ),
+                  const Spacer(),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 43,
+                    child: ElevatedButton(
+                      onPressed: () {
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: ColorApp.violet.withOpacity(0),
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            side: BorderSide(width: 1, color: ColorApp.white)),
+                      ),
+                      child: const Text(
+                        'Log up',
+                        style: TextStyleApp.bodyStyleOne,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 43,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('login');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: ColorApp.violet.withOpacity(0),
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            side: BorderSide(width: 1, color: ColorApp.white)),
+                      ),
+                      child: const Text(
+                        'Log in',
+                        style: TextStyleApp.bodyStyleOne,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
