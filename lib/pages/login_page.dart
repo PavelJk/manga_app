@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:manga_app/components/eleventButton.dart';
+import 'package:manga_app/components/validatorEmailAndPass.dart';
 import 'package:manga_app/style/color_app.dart';
 import 'package:manga_app/style/text_app.dart';
 
@@ -21,21 +22,23 @@ class _LoginPageState extends State<LoginPage> {
       child: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Padding(
-          padding: const EdgeInsets.all(25),
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
           child: Column(
             children: [
               const Spacer(),
-              Text(
+              const Text(
                 'MANGA',
                 style: TextStyleApp.headerTwo,
               ),
-              Text(
+              const Text(
                 'FLIX',
                 style: TextStyleApp.headerOne,
               ),
-              const Spacer(),
-              Align(
-                alignment: Alignment.bottomLeft,
+              const SizedBox(
+                height: 25,
+              ),
+              const Align(
+                alignment: Alignment.centerLeft,
                 child: Text(
                   'Login',
                   style: TextStyleApp.headerTwo,
@@ -44,30 +47,32 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 15,
               ),
-              TextField(
+              TextFormField(
                 decoration: InputDecoration(
                   hintText: 'Enter your email',
-                  prefixIcon: Icon(
+                  prefixIcon: const Icon(
                     Icons.email,
                     color: ColorApp.blue,
                   ),
-                  border: OutlineInputBorder(
+                  border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   filled: true,
                   fillColor: ColorApp.white.withOpacity(0.8),
                   hintStyle: TextStyleApp.textField,
                 ),
+                validator: (email) => ValidatorChek().validateEmail(email),
+                autovalidateMode: AutovalidateMode.onUserInteraction,
               ),
               const SizedBox(
                 height: 15,
               ),
-              TextField(
+              TextFormField(
                 obscureText: isobscureText,
                 decoration: InputDecoration(
                   hintText: 'Enter your password',
                   hintStyle: TextStyleApp.textField,
-                  prefixIcon: Icon(
+                  prefixIcon: const Icon(
                     Icons.lock,
                     color: ColorApp.blue,
                   ),
@@ -79,16 +84,19 @@ class _LoginPageState extends State<LoginPage> {
                       });
                     },
                     icon: isobscureText
-                        ? Icon(Icons.visibility_off)
-                        : Icon(Icons.visibility),
+                        ? const Icon(Icons.visibility_off)
+                        : const Icon(Icons.visibility),
                     color: ColorApp.blue,
                   ),
-                  border: OutlineInputBorder(
+                  border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   filled: true,
                   fillColor: ColorApp.white.withOpacity(0.8),
                 ),
+                validator: (password) =>
+                    ValidatorChek().validatePassword(password),
+                autovalidateMode: AutovalidateMode.onUserInteraction,
               ),
               const SizedBox(
                 height: 5,
@@ -105,13 +113,13 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextButton.styleFrom(
                       foregroundColor: ColorApp.violet,
                     ),
-                    label: Text('Remember me'),
+                    label: const Text('Remember me'),
                     icon: isRemember
-                        ? Icon(
+                        ? const Icon(
                             Icons.check_box_outline_blank,
                             size: 17,
                           )
-                        : Icon(
+                        : const Icon(
                             Icons.check_box_outlined,
                             size: 17,
                           ),
@@ -121,33 +129,18 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextButton.styleFrom(
                       foregroundColor: ColorApp.violet,
                     ),
-                    child: Text('Forgot Password?'),
+                    child: const Text('Forgot Password?'),
                   ),
                 ],
               ),
               const Spacer(),
-              SizedBox(
-                width: double.infinity,
-                height: 47,
-                child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: ColorApp.white.withOpacity(0),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          side: BorderSide(color: ColorApp.white)),
-                    ),
-                    child: Text(
-                      'Enter',
-                      style: TextStyle(fontSize: 20),
-                    )),
-              ),
+              CreateEleventButton().firstOrLogOrSignPage(nameButton: 'Enter', context: context, pathNameNavigator: 'home'),
               const SizedBox(
                 height: 25,
               ),
-              Text(
+              const Text(
                 'OR',
-                style: TextStyle(color: ColorApp.white, fontSize: 15),
+                style: TextStyleApp.bodeTwo,
               ),
               const SizedBox(
                 height: 25,
@@ -155,51 +148,9 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SizedBox(
-                    width: 60,
-                    height: 60,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white.withOpacity(0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(35)),
-                          side: BorderSide(color: ColorApp.violet),
-                        ),
-                      ),
-                      child: SvgPicture.asset('assets/svg/icons-yandex.svg'),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 60,
-                    height: 60,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white.withOpacity(0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(35)),
-                          side: BorderSide(color: ColorApp.violet),
-                        ),
-                      ),
-                      child: SvgPicture.asset('assets/svg/vk.svg'),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 60,
-                    height: 60,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white.withOpacity(0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(35)),
-                          side: BorderSide(color: ColorApp.violet),
-                        ),
-                      ),
-                      child: SvgPicture.asset('assets/svg/icons-google.svg'),
-                    ),
-                  ),
+                  CreateEleventButton().googleYandexVK(assetSvg: 'assets/svg/icons-yandex.svg'),
+                  CreateEleventButton().googleYandexVK(assetSvg: 'assets/svg/vk.svg'),
+                  CreateEleventButton().googleYandexVK(assetSvg: 'assets/svg/icons-google.svg'),
                 ],
               ),
               const Spacer(),
