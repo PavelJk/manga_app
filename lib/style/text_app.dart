@@ -4,6 +4,7 @@ import 'package:manga_app/style/color_app.dart';
 class TextStyleApp {
   static const headerOne = TextStyle(
     color: ColorApp.violet,
+    height: 1,
     fontSize: 68,
     fontWeight: FontWeight.bold,
   );
@@ -12,7 +13,7 @@ class TextStyleApp {
     fontSize: 37,
     fontWeight: FontWeight.bold,
   );
-  static const bodyStyleOne = TextStyle(
+  static const bodyOne = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.bold,
   );
@@ -20,5 +21,9 @@ class TextStyleApp {
     color: ColorApp.blue,
     fontSize: 17,
     fontWeight: FontWeight.w400,
+  );
+  static const bodeTwo = TextStyle(
+    fontSize: 15,
+    color: ColorApp.white,
   );
 }
