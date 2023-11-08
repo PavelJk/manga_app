@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:manga_app/components/eleventButton.dart';
-//import 'package:manga_app/style/color_app.dart';
+import 'package:manga_app/style/color_app.dart';
 import 'package:manga_app/style/text_app.dart';
 
 class FirstPage extends StatelessWidget {
@@ -21,7 +20,7 @@ class FirstPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 30),
+            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 25),
             child: Center(
               child: Column(
                 children: [
@@ -35,16 +34,37 @@ class FirstPage extends StatelessWidget {
                     style: TextStyleApp.headerOne,
                   ),
                   const Spacer(),
-                  CreateEleventButton().firstOrLogOrSignPage(nameButton: 'Sign up', context: context, pathNameNavigator: 'signup'),
+                  _elevelenButton('Sign up', context ,'signUp'),
                   const SizedBox(
                     height: 20,
                   ),
-                  CreateEleventButton().firstOrLogOrSignPage(nameButton: 'Log in', context: context, pathNameNavigator: 'login'),
+                  _elevelenButton('Log in', context, 'logIn'),
                 ],
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+  Widget _elevelenButton(String nameButton, BuildContext context, String pathNameNavigator) {
+    return SizedBox(
+      width: double.infinity,
+      height: 47,
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(pathNameNavigator);
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: ColorApp.violet.withOpacity(0),
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              side: BorderSide(width: 1, color: ColorApp.white)),
+        ),
+        child: Text(
+          nameButton,
+          style: TextStyleApp.bodyOne,
+        ),
       ),
     );
   }
