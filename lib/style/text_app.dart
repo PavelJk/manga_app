@@ -13,13 +13,18 @@ class TextStyleApp {
     fontSize: 37,
     fontWeight: FontWeight.bold,
   );
+  static const headerThree = TextStyle(
+    color: ColorApp.white,
+    fontSize: 26,
+    fontWeight: FontWeight.bold,
+  );
   static const bodyOne = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.bold,
   );
   static const textField = TextStyle(
     color: ColorApp.blue,
-    fontSize: 17,
+    fontSize: 15,
     fontWeight: FontWeight.w400,
   );
   static const bodeTwo = TextStyle(
