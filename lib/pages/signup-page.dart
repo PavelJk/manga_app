@@ -15,6 +15,7 @@ class _SingupPageState extends State<SingupPage> {
   bool isObscureText = true;
   bool isObscureTextRepeat = true;
   String _passwordForChek = '';
+  final _fromKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,165 +27,171 @@ class _SingupPageState extends State<SingupPage> {
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                child: Column(
-                  children: [
-                    const Spacer(),
-                    const Text(
-                      'MANGA',
-                      style: TextStyleApp.headerTwo,
-                    ),
-                    const Text(
-                      'FLIX',
-                      style: TextStyleApp.headerOne,
-                    ),
-                    const Spacer(),
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Sign up',
-                        style: TextStyleApp.headerThree,
+                child: Form(
+                  key: _fromKey,
+                  child: Column(
+                    children: [
+                      const Spacer(),
+                      const Text(
+                        'MANGA',
+                        style: TextStyleApp.headerTwo,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      decoration: _textFieldInputDecoration(
-                          'Enter your email', Icons.email),
-                      validator: (email) =>
-                          ValidatorChek().validateEmail(email),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
+                      const Text(
+                        'FLIX',
+                        style: TextStyleApp.headerOne,
+                      ),
+                      const Spacer(),
+                      const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Sign up',
+                          style: TextStyleApp.headerThree,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
                         decoration: _textFieldInputDecoration(
-                            'Enter your username', Icons.person)),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.zero,
-                          border: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          prefixIcon: const Icon(
-                            Icons.lock,
-                            color: ColorApp.blue,
-                          ),
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                isObscureText = !isObscureText;
-                              });
-                            },
-                            icon: isObscureText
-                                ? const Icon(Icons.visibility_off)
-                                : const Icon(Icons.visibility),
-                            color: ColorApp.blue,
-                          ),
-                          hintText: 'Enter your password',
-                          hintStyle: TextStyleApp.textField,
-                          filled: true,
-                          fillColor: ColorApp.white.withOpacity(0.8)),
-                      obscureText: isObscureText,
-                      onChanged: (value) {
-                        _passwordForChek = value;
-                      },
-                      validator: (password) =>
-                          ValidatorChek().validatePassword(password),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      obscureText: isObscureTextRepeat,
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.zero,
-                          border: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          prefixIcon: const Icon(
-                            Icons.lock,
-                            color: ColorApp.blue,
-                          ),
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                isObscureTextRepeat = !isObscureTextRepeat;
-                              });
-                            },
-                            icon: isObscureTextRepeat
-                                ? const Icon(Icons.visibility_off)
-                                : const Icon(Icons.visibility),
-                            color: ColorApp.blue,
-                          ),
-                          hintText: 'Enter repeat password',
-                          hintStyle: TextStyleApp.textField,
-                          filled: true,
-                          fillColor: ColorApp.white.withOpacity(0.8)),
-                      validator: (repeatPassword) =>
-                          _passwordForChek != repeatPassword
-                              ? 'The password doesn`t match'
-                              : null,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                        foregroundColor: ColorApp.violet,
+                            'Enter your email', Icons.email),
+                        validator: (email) =>
+                            Validator().validateEmail(email),
                       ),
-                      child: const Text('There is an account',
-                          style:
-                              TextStyle(decoration: TextDecoration.underline)),
-                    ),
-                    const Spacer(),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 47,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pushNamed("verificationPhone");
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                          decoration: _textFieldInputDecoration(
+                              'Enter your username', Icons.person),
+                        validator: (userName) => userName!.isEmpty ? '      Empty field' : null,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.zero,
+                            border: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                            ),
+                            prefixIcon: const Icon(
+                              Icons.lock,
+                              color: ColorApp.blue,
+                            ),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  isObscureText = !isObscureText;
+                                });
+                              },
+                              icon: isObscureText
+                                  ? const Icon(Icons.visibility_off)
+                                  : const Icon(Icons.visibility),
+                              color: ColorApp.blue,
+                            ),
+                            hintText: 'Enter your password',
+                            hintStyle: TextStyleApp.textField,
+                            filled: true,
+                            fillColor: ColorApp.white.withOpacity(0.8)),
+                        obscureText: isObscureText,
+                        onChanged: (value) {
+                          _passwordForChek = value;
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: ColorApp.violet.withOpacity(0),
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              side:
-                                  BorderSide(width: 1, color: ColorApp.white)),
+                        validator: (password) =>
+                            Validator().validatePassword(password),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                        obscureText: isObscureTextRepeat,
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.zero,
+                            border: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                            ),
+                            prefixIcon: const Icon(
+                              Icons.lock,
+                              color: ColorApp.blue,
+                            ),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  isObscureTextRepeat = !isObscureTextRepeat;
+                                });
+                              },
+                              icon: isObscureTextRepeat
+                                  ? const Icon(Icons.visibility_off)
+                                  : const Icon(Icons.visibility),
+                              color: ColorApp.blue,
+                            ),
+                            hintText: 'Enter repeat password',
+                            hintStyle: TextStyleApp.textField,
+                            filled: true,
+                            fillColor: ColorApp.white.withOpacity(0.8)),
+                        validator: (repeatPassword) =>
+                            _passwordForChek != repeatPassword
+                                ? '      The password doesn`t match'
+                                : null,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushReplacementNamed('logIn');
+                        },
+                        style: TextButton.styleFrom(
+                          foregroundColor: ColorApp.violet,
                         ),
-                        child: const Text(
-                          'Enter',
-                          style: TextStyleApp.bodyOne,
+                        child: const Text('There is an account',
+                            style:
+                                TextStyle(decoration: TextDecoration.underline)),
+                      ),
+                      const Spacer(),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 47,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_fromKey.currentState!.validate()) {
+                              Navigator.of(context).pushNamed('verificationPhone');
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: ColorApp.violet.withOpacity(0),
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                side:
+                                    BorderSide(width: 1, color: ColorApp.white)),
+                          ),
+                          child: const Text(
+                            'Enter',
+                            style: TextStyleApp.bodyOne,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    const Text(
-                      'OR',
-                      style: TextStyleApp.bodeTwo,
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        VkYandexGoogleButton(
-                            assetSvg: 'assets/svg/icons-yandex.svg'),
-                        VkYandexGoogleButton(assetSvg: 'assets/svg/vk.svg'),
-                        VkYandexGoogleButton(
-                            assetSvg: 'assets/svg/icons-google.svg'),
-                      ],
-                    ),
-                    const Spacer(),
-                  ],
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      const Text(
+                        'OR',
+                        style: TextStyleApp.bodeTwo,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          VkYandexGoogleButton(
+                              assetSvg: 'assets/svg/icons-yandex.svg'),
+                          VkYandexGoogleButton(assetSvg: 'assets/svg/vk.svg'),
+                          VkYandexGoogleButton(
+                              assetSvg: 'assets/svg/icons-google.svg'),
+                        ],
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
                 ),
               ),
             ),
