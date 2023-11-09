@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                       fillColor: ColorApp.white.withOpacity(0.8),
                       hintStyle: TextStyleApp.textField,
                     ),
-                    validator: (email) => ValidatorChek().validateEmail(email),
+                    validator: (email) => Validator().validateEmail(email),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                   const SizedBox(
@@ -97,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                       fillColor: ColorApp.white.withOpacity(0.8),
                     ),
                     validator: (password) =>
-                        ValidatorChek().validatePassword(password),
+                        Validator().validatePassword(password),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                   Row(
@@ -124,7 +124,9 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('forgotPassword');
+                        },
                         style: TextButton.styleFrom(
                           foregroundColor: ColorApp.violet,
                         ),
@@ -138,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: 47,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).pushNamed("verificationPhone");
+                        Navigator.of(context).pushNamed("home");
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: ColorApp.violet.withOpacity(0),
