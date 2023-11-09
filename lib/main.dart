@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:manga_app/pages/first_page.dart';
+import 'package:manga_app/pages/forgotPassword_page.dart';
 import 'package:manga_app/pages/login_page.dart';
 import 'package:manga_app/pages/signup-page.dart';
 import 'package:manga_app/pages/verification%E2%80%A8Phone_page.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         'logIn':(context) => const LoginPage(),
         'signUp':(context) => const SingupPage(),
         'verificationPhone':(context) => const VerificationPhonePage(),
+        'forgotPassword':(context) => const ForgotPasswordPage(),
       },
       debugShowCheckedModeBanner: false,
     );
