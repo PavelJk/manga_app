@@ -13,4 +13,22 @@ class Validator {
     }
     return null;
   }
+  String? validateUser(String? user){
+    if (user!.isEmpty) {
+      return '      Empty field';
+    }
+    return null;
+  }
+  String? validateRepeatPassword(String? repeatPassword, String? firstPassword){
+    if (repeatPassword != firstPassword) {
+      return '      The password doesn`t match';
+    }
+    return null;
+  }
+  String? validateNumberPhone(String? numberPhone){
+    if (numberPhone!.length < 12 || !numberPhone.contains('+')) {
+      return '      Invalid number: (count = 12 or >) and (+)';
+    }
+    return null;
+  }
 }
