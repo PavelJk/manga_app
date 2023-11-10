@@ -14,7 +14,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool isobscureText = true;
   bool isRemember = true;
-
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,155 +25,157 @@ class _LoginPageState extends State<LoginPage> {
           child: IntrinsicHeight(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-              child: Column(
-                children: [
-                  const Spacer(),
-                  const Text(
-                    'MANGA',
-                    style: TextStyleApp.headerTwo,
-                  ),
-                  const Text(
-                    'FLIX',
-                    style: TextStyleApp.headerOne,
-                  ),
-                  const Spacer(),
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Login',
-                      style: TextStyleApp.headerThree,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    const Spacer(),
+                    const Text(
+                      'MANGA',
+                      style: TextStyleApp.headerTwo,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.zero,
-                      hintText: 'Enter your email',
-                      prefixIcon: const Icon(
-                        Icons.email,
-                        color: ColorApp.blue,
-                      ),
-                      border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      filled: true,
-                      fillColor: ColorApp.white.withOpacity(0.8),
-                      hintStyle: TextStyleApp.textField,
+                    const Text(
+                      'FLIX',
+                      style: TextStyleApp.headerOne,
                     ),
-                    validator: (email) => Validator().validateEmail(email),
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  TextFormField(
-                    obscureText: isobscureText,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.zero,
-                      hintText: 'Enter your password',
-                      hintStyle: TextStyleApp.textField,
-                      prefixIcon: const Icon(
-                        Icons.lock,
-                        color: ColorApp.blue,
+                    const Spacer(),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Login',
+                        style: TextStyleApp.headerThree,
                       ),
-                      suffixIcon: IconButton(
-                        padding: const EdgeInsets.only(right: 10),
-                        onPressed: () {
-                          setState(() {
-                            isobscureText = !isobscureText;
-                          });
-                        },
-                        icon: isobscureText
-                            ? const Icon(Icons.visibility_off)
-                            : const Icon(Icons.visibility),
-                        color: ColorApp.blue,
-                      ),
-                      border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      filled: true,
-                      fillColor: ColorApp.white.withOpacity(0.8),
                     ),
-                    validator: (password) =>
-                        Validator().validatePassword(password),
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton.icon(
-                        onPressed: () {
-                          setState(() {
-                            isRemember = !isRemember;
-                          });
-                        },
-                        style: TextButton.styleFrom(
-                          foregroundColor: ColorApp.violet,
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.zero,
+                        hintText: 'Enter your email',
+                        prefixIcon: const Icon(
+                          Icons.email,
+                          color: ColorApp.blue,
                         ),
-                        label: const Text('Remember me'),
-                        icon: isRemember
-                            ? const Icon(
-                                Icons.check_box_outline_blank,
-                                size: 17,
-                              )
-                            : const Icon(
-                                Icons.check_box_outlined,
-                                size: 17,
-                              ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('forgotPassword');
-                        },
-                        style: TextButton.styleFrom(
-                          foregroundColor: ColorApp.violet,
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
-                        child: const Text('Forgot Password?'),
+                        filled: true,
+                        fillColor: ColorApp.white.withOpacity(0.8),
+                        hintStyle: TextStyleApp.textField,
                       ),
-                    ],
-                  ),
-                  const Spacer(),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 47,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed("home");
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: ColorApp.violet.withOpacity(0),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            side: BorderSide(width: 1, color: ColorApp.white)),
+                      validator: (email) => Validator().validateEmail(email),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      obscureText: isobscureText,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.zero,
+                        hintText: 'Enter your password',
+                        hintStyle: TextStyleApp.textField,
+                        prefixIcon: const Icon(
+                          Icons.lock,
+                          color: ColorApp.blue,
+                        ),
+                        suffixIcon: IconButton(
+                          padding: const EdgeInsets.only(right: 10),
+                          onPressed: () {
+                            setState(() {
+                              isobscureText = !isobscureText;
+                            });
+                          },
+                          icon: isobscureText
+                              ? const Icon(Icons.visibility_off)
+                              : const Icon(Icons.visibility),
+                          color: ColorApp.blue,
+                        ),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        filled: true,
+                        fillColor: ColorApp.white.withOpacity(0.8),
                       ),
-                      child: const Text(
-                        'Enter',
-                        style: TextStyleApp.bodyOne,
+                      validator: (password) => Validator().validatePassword(password),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton.icon(
+                          onPressed: () {
+                            setState(() {
+                              isRemember = !isRemember;
+                            });
+                          },
+                          style: TextButton.styleFrom(
+                            foregroundColor: ColorApp.violet,
+                          ),
+                          label: const Text('Remember me'),
+                          icon: isRemember
+                              ? const Icon(
+                                  Icons.check_box_outline_blank,
+                                  size: 17,
+                                )
+                              : const Icon(
+                                  Icons.check_box_outlined,
+                                  size: 17,
+                                ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('forgotPassword');
+                          },
+                          style: TextButton.styleFrom(
+                            foregroundColor: ColorApp.violet,
+                          ),
+                          child: const Text('Forgot Password?'),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 47,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            Navigator.of(context).pushNamed("home");
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: ColorApp.violet.withOpacity(0),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                              side: BorderSide(width: 1, color: ColorApp.white)),
+                        ),
+                        child: const Text(
+                          'Enter',
+                          style: TextStyleApp.bodyOne,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    'OR',
-                    style: TextStyleApp.bodeTwo,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      VkYandexGoogleButton(assetSvg: 'assets/svg/icons-yandex.svg'),
-                      VkYandexGoogleButton(assetSvg: 'assets/svg/vk.svg'),
-                      VkYandexGoogleButton(assetSvg: 'assets/svg/icons-google.svg'),
-                    ],
-                  ),
-                  const Spacer(),
-                ],
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      'OR',
+                      style: TextStyleApp.bodeTwo,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        VkYandexGoogleButton(assetSvg: 'assets/svg/icons-yandex.svg'),
+                        VkYandexGoogleButton(assetSvg: 'assets/svg/vk.svg'),
+                        VkYandexGoogleButton(assetSvg: 'assets/svg/icons-google.svg'),
+                      ],
+                    ),
+                    const Spacer(),
+                  ],
+                ),
               ),
             ),
           ),
