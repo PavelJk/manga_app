@@ -14,8 +14,8 @@ class SingupPage extends StatefulWidget {
 class _SingupPageState extends State<SingupPage> {
   bool isObscureText = true;
   bool isObscureTextRepeat = true;
-  String _passwordForChek = '';
-  final _fromKey = GlobalKey<FormState>();
+  String _firstPassword = '';
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +28,7 @@ class _SingupPageState extends State<SingupPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                 child: Form(
-                  key: _fromKey,
+                  key: _formKey,
                   child: Column(
                     children: [
                       const Spacer(),
@@ -63,7 +63,7 @@ class _SingupPageState extends State<SingupPage> {
                       TextFormField(
                           decoration: _textFieldInputDecoration(
                               'Enter your username', Icons.person),
-                        validator: (userName) => userName!.isEmpty ? '      Empty field' : null,
+                        validator: (userName) => Validator().validateUser(userName)
                       ),
                       const SizedBox(
                         height: 10,
@@ -95,7 +95,7 @@ class _SingupPageState extends State<SingupPage> {
                             fillColor: ColorApp.white.withOpacity(0.8)),
                         obscureText: isObscureText,
                         onChanged: (value) {
-                          _passwordForChek = value;
+                          _firstPassword = value;
                         },
                         validator: (password) =>
                             Validator().validatePassword(password),
@@ -129,10 +129,7 @@ class _SingupPageState extends State<SingupPage> {
                             hintStyle: TextStyleApp.textField,
                             filled: true,
                             fillColor: ColorApp.white.withOpacity(0.8)),
-                        validator: (repeatPassword) =>
-                            _passwordForChek != repeatPassword
-                                ? '      The password doesn`t match'
-                                : null,
+                        validator: (repeatPassword) => Validator().validateRepeatPassword(repeatPassword, _firstPassword),
                       ),
                       TextButton(
                         onPressed: () {
@@ -151,7 +148,7 @@ class _SingupPageState extends State<SingupPage> {
                         height: 47,
                         child: ElevatedButton(
                           onPressed: () {
-                            if (_fromKey.currentState!.validate()) {
+                            if (_formKey.currentState!.validate()) {
                               Navigator.of(context).pushNamed('verificationPhone');
                             }
                           },
