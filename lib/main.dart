@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:manga_app/pages/first_page.dart';
 import 'package:manga_app/pages/forgotPassword_page.dart';
 import 'package:manga_app/pages/login_page.dart';
+import 'package:manga_app/pages/newPasswordPage.dart';
 import 'package:manga_app/pages/signup-page.dart';
 import 'package:manga_app/pages/verification%E2%80%A8Code_page.dart';
 import 'package:manga_app/pages/verification%E2%80%A8Phone_page.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         'verificationPhone':(context) => const VerificationPhonePage(),
         'forgotPassword':(context) => const ForgotPasswordPage(),
         'verificationCode':(context) => const VerificationCodePage(),
+        'newPassword':(context) => const CreateNewPasswordPage(),
       },
       debugShowCheckedModeBanner: false,
     );
