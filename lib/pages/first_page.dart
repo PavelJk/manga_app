@@ -56,7 +56,7 @@ class FirstPage extends StatelessWidget {
           Navigator.of(context).pushNamed(pathNameNavigator);
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: ColorApp.violet.withOpacity(0),
+          backgroundColor: const Color(0),
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20)),
               side: BorderSide(width: 1, color: ColorApp.white)),
