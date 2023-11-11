@@ -19,7 +19,7 @@ class _VkYandexGoogleButtonState extends State<VkYandexGoogleButton> {
       child: ElevatedButton(
         onPressed: () {},
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white.withOpacity(0),
+          backgroundColor: Color(0),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(35)),
             side: BorderSide(color: ColorApp.violet),
