@@ -11,7 +11,7 @@ class ForgotPasswordPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: ColorApp.backgroundApp,
       ),
-      body: const ForgotPasswordAndVerificationPhoneBody(namePage: 'Forgot your password?'),
+      body: const ForgotPasswordAndVerificationPhoneBody(namePage: 'Forgot your password?', namePathNavigator: 'newPassword'),
     );
   }
 }

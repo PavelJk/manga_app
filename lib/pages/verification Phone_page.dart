@@ -12,7 +12,7 @@ class VerificationPhonePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: ColorApp.backgroundApp,
       ),
-      body: const ForgotPasswordAndVerificationPhoneBody(namePage: 'Phone verification')
+      body: const ForgotPasswordAndVerificationPhoneBody(namePage: 'Phone verification', namePathNavigator: 'main')
     );
   }
 }
