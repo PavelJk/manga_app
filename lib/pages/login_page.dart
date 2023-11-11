@@ -12,7 +12,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool isobscureText = true;
+  bool isObscureText = true;
   bool isRemember = true;
   final _formKey = GlobalKey<FormState>();
   @override
@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 15,
                     ),
                     TextFormField(
-                      obscureText: isobscureText,
+                      obscureText: isObscureText,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.zero,
                         hintText: 'Enter your password',
@@ -83,10 +83,10 @@ class _LoginPageState extends State<LoginPage> {
                           padding: const EdgeInsets.only(right: 10),
                           onPressed: () {
                             setState(() {
-                              isobscureText = !isobscureText;
+                              isObscureText = !isObscureText;
                             });
                           },
-                          icon: isobscureText
+                          icon: isObscureText
                               ? const Icon(Icons.visibility_off)
                               : const Icon(Icons.visibility),
                           color: ColorApp.blue,
@@ -144,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: ColorApp.violet.withOpacity(0),
+                          backgroundColor: Color(0),
                           shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(Radius.circular(20)),
                               side: BorderSide(width: 1, color: ColorApp.white)),
