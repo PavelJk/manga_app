@@ -79,6 +79,7 @@ class _SingupPageState extends State<SingupPage> {
                               color: ColorApp.blue,
                             ),
                             suffixIcon: IconButton(
+                              padding: const EdgeInsets.only(right: 10),
                               onPressed: () {
                                 setState(() {
                                   isObscureText = !isObscureText;
@@ -115,6 +116,7 @@ class _SingupPageState extends State<SingupPage> {
                               color: ColorApp.blue,
                             ),
                             suffixIcon: IconButton(
+                              padding: const EdgeInsets.only(right: 10),
                               onPressed: () {
                                 setState(() {
                                   isObscureTextRepeat = !isObscureTextRepeat;
@@ -153,7 +155,7 @@ class _SingupPageState extends State<SingupPage> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: ColorApp.violet.withOpacity(0),
+                            backgroundColor: Color(0),
                             shape: const RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(20)),
