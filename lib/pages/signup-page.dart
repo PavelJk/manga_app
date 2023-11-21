@@ -1,21 +1,50 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:manga_app/components/errorMessange.dart';
 import 'package:manga_app/components/vkYandexGoogleButton.dart';
 import 'package:manga_app/components/validatorEmailAndPass.dart';
 import 'package:manga_app/style/color_app.dart';
 import 'package:manga_app/style/text_app.dart';
 
-class SingupPage extends StatefulWidget {
-  const SingupPage({super.key});
+class SingUpPage extends StatefulWidget {
+  const SingUpPage({super.key});
 
   @override
-  State<SingupPage> createState() => _SingupPageState();
+  State<SingUpPage> createState() => _SingUpPageState();
 }
 
-class _SingupPageState extends State<SingupPage> {
+class _SingUpPageState extends State<SingUpPage> {
   bool isObscureText = true;
   bool isObscureTextRepeat = true;
   String _firstPassword = '';
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  Future singUp() async{
+    showDialog(
+      context: context,
+      builder:(context) => const Center(
+          child: CircularProgressIndicator(
+            color: ColorApp.violet,
+          ),
+      ),
+    );
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      Navigator.of(context).pushNamed('verificationPhone').then((_){
+          FirebaseAuth.instance.currentUser?.delete();
+          Navigator.pop(context);
+        }
+      );
+    } on FirebaseAuthException catch (error) {
+      Navigator.pop(context);
+      ErrorMessange.showSnackBar(error.message);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,6 +81,7 @@ class _SingupPageState extends State<SingupPage> {
                         height: 10,
                       ),
                       TextFormField(
+                        controller: _emailController,
                         decoration: _textFieldInputDecoration(
                             'Enter your email', Icons.email),
                         validator: (email) =>
@@ -63,12 +93,13 @@ class _SingupPageState extends State<SingupPage> {
                       TextFormField(
                           decoration: _textFieldInputDecoration(
                               'Enter your username', Icons.person),
-                        validator: (userName) => Validator().validateUser(userName)
+                        validator: (userName) => Validator().validateIsEmpty(userName)
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       TextFormField(
+                        controller: _passwordController,
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.zero,
                             border: const OutlineInputBorder(
@@ -135,7 +166,7 @@ class _SingupPageState extends State<SingupPage> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.of(context).pushReplacementNamed('logIn');
+                          Navigator.of(context).pushNamedAndRemoveUntil('logIn', (route) => false);
                         },
                         style: TextButton.styleFrom(
                           foregroundColor: ColorApp.violet,
@@ -151,7 +182,7 @@ class _SingupPageState extends State<SingupPage> {
                         child: ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              Navigator.of(context).pushNamed('verificationPhone');
+                              singUp();
                             }
                           },
                           style: ElevatedButton.styleFrom(
