@@ -13,8 +13,8 @@ class Validator {
     }
     return null;
   }
-  String? validateUser(String? user){
-    if (user!.isEmpty) {
+  String? validateIsEmpty(String? text){
+    if (text!.isEmpty) {
       return '   Empty field';
     }
     return null;

@@ -38,7 +38,7 @@ class FirstPage extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  _elevelenButton('Log in', context, 'logIn'),
+                  _elevelenButton('Log in', context, 'auth'),
                 ],
               ),
             ),
