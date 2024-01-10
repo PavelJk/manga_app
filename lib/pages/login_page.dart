@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:manga_app/components/errorMessange.dart';
 import 'package:manga_app/components/vkYandexGoogleButton.dart';
 import 'package:manga_app/components/validatorEmailAndPass.dart';
 import 'package:manga_app/style/color_app.dart';
@@ -6,15 +8,43 @@ import 'package:manga_app/style/text_app.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
-
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool isObscureText = true;
-  bool isRemember = true;
+  bool _isObscureText = true;
+  bool _isRemember = false;
   final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  Future signIn() async{
+    showDialog(
+      context: context,
+      builder:(context) => const Center(
+        child: CircularProgressIndicator(
+          color: ColorApp.violet,
+        ),
+      ), 
+    );
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (error) {
+      ErrorMessange.showSnackBar(error.message);
+      Navigator.pop(context);
+    }
+  }
+@override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
           constraints: BoxConstraints(minHeight: constraints.maxHeight),
           child: IntrinsicHeight(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 14),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -50,6 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 10,
                     ),
                     TextFormField(
+                      controller: _emailController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.zero,
                         hintText: 'Enter your email',
@@ -70,7 +101,8 @@ class _LoginPageState extends State<LoginPage> {
                       height: 15,
                     ),
                     TextFormField(
-                      obscureText: isObscureText,
+                      controller: _passwordController,
+                      obscureText: _isObscureText,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.zero,
                         hintText: 'Enter your password',
@@ -83,10 +115,10 @@ class _LoginPageState extends State<LoginPage> {
                           padding: const EdgeInsets.only(right: 10),
                           onPressed: () {
                             setState(() {
-                              isObscureText = !isObscureText;
+                              _isObscureText = !_isObscureText;
                             });
                           },
-                          icon: isObscureText
+                          icon: _isObscureText
                               ? const Icon(Icons.visibility_off)
                               : const Icon(Icons.visibility),
                           color: ColorApp.blue,
@@ -97,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                         filled: true,
                         fillColor: ColorApp.white.withOpacity(0.8),
                       ),
-                      validator: (password) => Validator().validatePassword(password),
+                      validator: (password) => Validator().validateIsEmpty(password),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -105,20 +137,20 @@ class _LoginPageState extends State<LoginPage> {
                         TextButton.icon(
                           onPressed: () {
                             setState(() {
-                              isRemember = !isRemember;
+                              _isRemember = !_isRemember;
                             });
                           },
                           style: TextButton.styleFrom(
                             foregroundColor: ColorApp.violet,
                           ),
                           label: const Text('Remember me'),
-                          icon: isRemember
+                          icon: _isRemember
                               ? const Icon(
-                                  Icons.check_box_outline_blank,
+                                  Icons.check_box_outlined,
                                   size: 17,
                                 )
                               : const Icon(
-                                  Icons.check_box_outlined,
+                                  Icons.check_box_outline_blank,
                                   size: 17,
                                 ),
                         ),
@@ -140,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            Navigator.of(context).pushNamed("home");
+                            signIn();
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -171,6 +203,28 @@ class _LoginPageState extends State<LoginPage> {
                         VkYandexGoogleButton(assetSvg: 'assets/svg/icons-yandex.svg'),
                         VkYandexGoogleButton(assetSvg: 'assets/svg/vk.svg'),
                         VkYandexGoogleButton(assetSvg: 'assets/svg/icons-google.svg'),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'No account?',
+                          style: TextStyleApp.bodeTwo,
+                        ),
+                        TextButton(
+                          onPressed:() {
+                            Navigator.of(context).pushNamedAndRemoveUntil('signUp', (route) => false);
+                          },
+                          style: TextButton.styleFrom(
+                            foregroundColor: ColorApp.violet,
+                          ),
+                          child: const Text(
+                            'Sign Up',
+                            style: TextStyle(decoration: TextDecoration.underline, fontSize: 15),
+                          ),
+                        ),
                       ],
                     ),
                     const Spacer(),
